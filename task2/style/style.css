@@ -1,0 +1,52 @@
+body{
+	margin: 50px 50px;
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
+}
+
+.alert-danger li{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	font-size: 25px;
+	color: red;
+}
+
+.container{
+	width: 1200px;
+	margin: 0 auto;
+}
+.btn{
+	margin: 30px 0px;
+}
+
+.btn__link{
+	padding: 10px 20px;
+	border:1px solid #000;
+}
+
+.input__form{
+	display: block;
+}
+
+.form__input{
+	display: block;
+}
+
+.profile__text{
+	
+}
+
+.post__title{
+	line-height: 27px;
+    width: 50%;
+}
+
+.textarea{
+	width: 50%;
+    height: 120px;
+    margin-top: 10px;
+}
