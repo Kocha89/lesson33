@@ -3,7 +3,7 @@
     include '../configs/dbconfig.php';
 
 
-    $link=mysqli_connect($host, $user, $password, $database);
+    $link=mysqli_connect($host, $db_user, $db_password, $database);
 
 
     $email=$_SESSION['email'];

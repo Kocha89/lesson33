@@ -7,7 +7,7 @@
 	$user_id = $_SESSION['user_id'];
 	$errors=[];
 
-	$link=mysqli_connect($host, $user, $password, $database);
+	$link=mysqli_connect($host, $db_user, $db_password, $database);
 	$isChanged=false;
 
 	if (isset($_GET['id'])){

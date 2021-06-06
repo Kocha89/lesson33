@@ -2,7 +2,7 @@
 
     include 'configs/dbconfig.php';
 
-    $link=mysqli_connect($host, $user, $password, $database);
+    $link=mysqli_connect($host, $db_user, $db_password, $database);
 
     $query="SELECT users.first_name, posts.title, posts.description, posts.id FROM `posts` JOIN users ON posts.user_id=users.id";
 

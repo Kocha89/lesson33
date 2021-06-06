@@ -11,7 +11,7 @@
 		die;
 	}
 	
-	$link=mysqli_connect($host, $user, $password, $database);
+	$link=mysqli_connect($host, $db_user, $db_password, $database);
 
 	if(mysqli_connect_errno() ) {
 		printf('Не удалось подключиться: %$\n', mysql_connect_error());

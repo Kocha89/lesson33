@@ -7,7 +7,7 @@ $email = "";
 $errors=[];
 
 
-$link=mysqli_connect($host, $user, $password, $database);
+
 
 // SIGN UP USER
 
@@ -18,31 +18,38 @@ if (isset($_POST['submit'])) {
     if (empty($_POST['password'])) {
         $errors['password'] = 'Введите ваш пароль';
     }
+	if (count($errors) == 0) {
 
-    $email = $link->real_escape_string(trim($_POST['email']));
-    $password = $link->real_escape_string(trim($_POST['password']));
+		$link=mysqli_connect($host, $db_user, $db_password, $database);
 
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password' LIMIT 1";
-    $result = mysqli_query($link, $sql) or die(mysqli_error($link));;
-    
-    if (mysqli_num_rows($result) > 0) {
- 		if (isset($_POST['submit'])) {
- 			$_SESSION['email']=$_POST['email'];
- 			$_SESSION['password']=$_POST['password'];
- 			header('Location: profile/profile.php');
- 		}  				  
+		$email = $link->real_escape_string(trim($_POST['email']));
+		$password = $link->real_escape_string(trim($_POST['password']));
 
-    } else {
-        //  $message = "Invalid username or password!";
-        
-        $errors['password'] = "Почта или логин не правильные"; 
-    }
+		
 
+		$sql = "SELECT * FROM users WHERE email='$email' AND password='$password' LIMIT 1";
+		$result = mysqli_query($link, $sql) or die(mysqli_error($link));
+
+		if (mysqli_num_rows($result) > 0) {
+			if (isset($_POST['submit'])) {
+				$_SESSION['email']=$_POST['email'];
+				$_SESSION['password']=$_POST['password'];
+				header('Location: profile/profile.php');
+			}  				  
+   
+	   } else {
+		   //  $message = "Invalid username or password!";
+		   
+		   $errors['password'] = "Почта или логин не правильные"; 
+	   }
+			// LOGIN
+		mysqli_close($link);
+	}
 }
 
 
-// LOGIN
- mysqli_close($link);
+
+
 
  ?>
 <!DOCTYPE html>

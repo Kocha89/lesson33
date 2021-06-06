@@ -1,7 +1,7 @@
 <?php
 	$host='localhost';
 	$database='products';
-	$user='root';
-	$password='';
+	$db_user='root';
+	$db_password='';
 
 ?>

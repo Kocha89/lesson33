@@ -7,7 +7,7 @@
 	$user_id = $_SESSION['id'];
 	$errors=[];
 	
-	$link=mysqli_connect($host, $user, $password, $database);
+	$link=mysqli_connect($host, $db_user, $db_password, $database);
 	$isAdded=false;
 
 	if (isset($_POST['submit'])) {
