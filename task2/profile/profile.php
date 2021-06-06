@@ -1,27 +1,6 @@
 <?php
     session_start();
-    include '../configs/dbconfig.php';
 
-
-    $link=mysqli_connect($host, $db_user, $db_password, $database);
-
-
-    $email=$_SESSION['email'];
-    $password=$_SESSION['password'];
-  
-
-    $query="SELECT * FROM users WHERE email='$email' AND password='$password'";
-    $result = mysqli_query($link,$query);
-
-
-    if($result && mysqli_num_rows($result)>0){
-        $row=$result->fetch_assoc();
-        $_SESSION['id']=$row['id'];
-
-    }
-
-
-    mysqli_close($link);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,8 +17,8 @@
             <div class="form__inner2">
             <div class="registration2">
             <h2>Личный кабинет</h2>
-            <?php if($result){
-                echo "Привет, " . $row['first_name'] . " .Добро пожаловать в личный кабинет."; 
+            <?php if($_SESSION['result']){
+                echo "Привет, " . $_SESSION['first_name'] . " .Добро пожаловать в личный кабинет."; 
                 } else {
                 //  $message = "Invalid username or password!";
                 
@@ -47,10 +26,10 @@
 
              } ?>
             <div>
-                <p>Имя: <?php echo $row['first_name'];?></p>
-                <p>Фамилия: <?php echo $row['last_name'];?></p>            
+                <p>Имя: <?php echo $_SESSION['first_name'];?></p>
+                <p>Фамилия: <?php echo $_SESSION['last_name'];?></p>            
                 <div class="btn">
-                    <a class="btn__link" href="update.php?id=<?php echo $row['id'];?>">Изменить</a>
+                    <a class="btn__link" href="update.php?id=<?php echo $_SESSION['id'];?>">Изменить</a>
                 </div>
                 
             </div>

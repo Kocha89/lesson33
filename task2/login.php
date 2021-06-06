@@ -2,12 +2,7 @@
 session_start();
 include 'configs/dbconfig.php';
 
-$password = "";
-$email = "";
 $errors=[];
-
-
-
 
 // SIGN UP USER
 
@@ -23,17 +18,21 @@ if (isset($_POST['submit'])) {
 		$link=mysqli_connect($host, $db_user, $db_password, $database);
 
 		$email = $link->real_escape_string(trim($_POST['email']));
-		$password = $link->real_escape_string(trim($_POST['password']));
-
-		
+		$password = $link->real_escape_string(trim($_POST['password']));		
 
 		$sql = "SELECT * FROM users WHERE email='$email' AND password='$password' LIMIT 1";
 		$result = mysqli_query($link, $sql) or die(mysqli_error($link));
+		$_SESSION['result']=$result;
 
 		if (mysqli_num_rows($result) > 0) {
+			$row=$result->fetch_assoc();
 			if (isset($_POST['submit'])) {
-				$_SESSION['email']=$_POST['email'];
-				$_SESSION['password']=$_POST['password'];
+				$_SESSION['email']=$row['email'];
+				$_SESSION['password']=$row['password'];
+				$_SESSION['first_name']=$row['first_name'];
+				$_SESSION['id']=$row['id'];
+				$_SESSION['last_name']=$row['last_name'];
+				$_SESSION['city']=$row['city'];
 				header('Location: profile/profile.php');
 			}  				  
    
@@ -78,6 +77,9 @@ if (isset($_POST['submit'])) {
 				<input class="input__form" type="text" name="password" placeholder="Пароль">
 				<input class="input__form" type="submit" name="submit" value="Войти">
 			</form>
+			<div class="register">
+					<a class="register__text" href="register.php">Регистрация</a>
+			</div>
 		</div>
 	</div>
 

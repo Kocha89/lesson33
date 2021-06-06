@@ -36,10 +36,6 @@ a{
 	display: block;
 }
 
-.profile__text{
-	
-}
-
 .post__title{
 	line-height: 27px;
     width: 50%;
@@ -49,4 +45,8 @@ a{
 	width: 50%;
     height: 120px;
     margin-top: 10px;
+}
+
+.register{
+	margin: 50px 0px;
 }

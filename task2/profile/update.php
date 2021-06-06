@@ -2,55 +2,26 @@
 	session_start();
 	include '../configs/dbconfig.php';
 
-
-    $link=mysqli_connect($host, $db_user, $db_password, $database);
-
-
-    $email=$_SESSION['email'];
-    $password=$_SESSION['password'];
-
-  
-
-    $query="SELECT * FROM users WHERE email='$email' AND password='$password'";
-
-	$result=mysqli_query($link, $query) or die("Ошибка" . mysqli_error($link));
 	$isChanged=false;
-
-	if($result && mysqli_num_rows($result)>0){
-		$row=$result->fetch_assoc();
-		$first_name=$row['first_name'];
-		$last_name=$row['last_name'];
-		$city=$row['city'];
-		$id=$row['id'];
-	}
-
 	
 	if (isset($_POST['submit'])) {
-		if(isset($_POST['first_name'])) {
-			$first_name=$link->real_escape_string(trim($_POST['first_name']));
-			$isChanged=true;
-		} 
-
-		if(isset($_POST['last_name'])) {
-			$last_name=$link->real_escape_string(trim($_POST['last_name']));
-		} 
-		if(isset($_POST['city'])) {
-			$city=$link->real_escape_string(trim($_POST['city']));
-		} 
-		if(mysqli_connect_errno() ) {
-		printf('Не удалось подключиться: %$\n', mysql_connect_error());
-		exit();
-		}
+		$first_name=$_POST['first_name'];
+		$last_name=$_POST['last_name'];
+		$isChanged=true;
+		$city=$_POST['city'];
+		$id=$_SESSION['id'];
+		
+		$link=mysqli_connect($host, $db_user, $db_password, $database);
 
 		$query="UPDATE users SET first_name = '$first_name', last_name = '$last_name', city = '$city' WHERE id = '$id'";
-		
-		
 		$result=mysqli_query($link, $query) or die("Ошибка" . mysqli_error($link));
-
-		
+		mysqli_close($link);
 	}
-
-	mysqli_close($link);
+	if(mysqli_connect_errno() ) {
+	printf('Не удалось подключиться: %$\n', mysql_connect_error());
+	exit();
+	}
+	
  ?>
 
  <!DOCTYPE html>
@@ -78,9 +49,9 @@
 			</p>
 			
 			<form method="POST">
-				<input class="form__input" type="text" name="first_name" value="<?php echo $row['first_name'];?>" placeholder="Имя">
-				<input class="form__input" type="text" value="<?php echo $row['last_name'];?>" name="last_name" placeholder="Фамилия">
-				<input class="form__input" type="text" value="<?php echo $row['city'];?>" name="city" placeholder="Город">
+				<input class="form__input" type="text" name="first_name" value="<?php echo $_SESSION['first_name'];?>" placeholder="Имя">
+				<input class="form__input" type="text" value="<?php echo $_SESSION['last_name'];?>" name="last_name" placeholder="Фамилия">
+				<input class="form__input" type="text" value="<?php echo $_SESSION['city'];?>" name="city" placeholder="Город">
 				<input class="form__input" type="submit" name="submit" value="Сохранить">
 			</form>
 			<?php else:
