@@ -33,6 +33,7 @@ if (isset($_POST['submit'])) {
 				$_SESSION['id']=$row['id'];
 				$_SESSION['last_name']=$row['last_name'];
 				$_SESSION['city']=$row['city'];
+				$_SESSION['user_id']=$row['user_id'];
 				header('Location: profile/profile.php');
 			}  				  
    

@@ -2,44 +2,41 @@
 	session_start();
 	include '../../configs/dbconfig.php';
 
-	$title = isset($_POST['title']) ? $_POST['title'] : '';
-	$text = isset($_POST['text']) ? $_POST['text'] : '';
-	$user_id = $_SESSION['id'];
 	$errors=[];
 	
-	$link=mysqli_connect($host, $db_user, $db_password, $database);
 	$isAdded=false;
 
 	if (isset($_POST['submit'])) {
 		if (empty($_POST['title'])) {
         	$errors['title'] =  'Заполните тему записи';
     	}
-
-    	$title = $link->real_escape_string(trim($_POST['title']));
-    	$text = $link->real_escape_string(trim($_POST['text']));
+		if (empty($_POST['text'])) {
+        	$errors['text'] =  'Напишите текст';
+    	}
+    	
 
     	if (isset($_POST['submit']) && count($errors)===0) {
+			$user_id = $_SESSION['id'];
 			$isAdded=true;
+
+			$link=mysqli_connect($host, $db_user, $db_password, $database);
+
+			$title = $link->real_escape_string(trim($_POST['title']));
+    		$text = $link->real_escape_string(trim($_POST['text']));
+
+			$query="INSERT INTO posts (title, text, user_id, catid) values('$title', '$text', '$user_id', '2')";
+			$result=mysqli_query($link, $query) or die("Ошибка" . mysqli_error($link));
+			mysqli_close($link);
+
 			if(mysqli_connect_errno() ) {
 			printf('Не удалось подключиться: %$\n', mysql_connect_error());
 			}
 		
-
-			$query="INSERT INTO posts (title, text, user_id) values('$title', '$text', '$user_id')";
-
-			$result = mysqli_query($link,$query);
-
-			if($result == false)
-			{
-				printf('Ошибка: %$\n', mysqli_sqlstate($link));
-			} 
 		}
 
 	}
 
-	
-		
-	mysqli_close($link);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +75,6 @@
 				<input class="form__input" type="submit" name="submit" value="Добавить">
 			</form>
 			<?php else:
-                    session_start();
                     unset($_SESSION['email']);
                     unset($_SESSION['password']);
                     session_destroy();
