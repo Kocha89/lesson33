@@ -1,6 +1,6 @@
 <?php
 
-    include 'configs/dbconfig.php';
+    include '../task2/configs/dbconfig.php';
 
     $link=mysqli_connect($host, $db_user, $db_password, $database);
 
@@ -32,7 +32,7 @@
           
             <h1>Список новостей</h1>
             <div class="btn">
-                <a class="btn__link" href="login.php">Войти</a>
+                <a class="btn__link" href="task/login.php">Войти</a>
             </div>          
             <div class="news">
             <?php if (isset($posts)): ?>

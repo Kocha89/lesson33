@@ -1,6 +1,6 @@
 <?php
 
-    include 'configs/dbconfig.php';
+    include '../task2/configs/dbconfig.php';
 
     $link=mysqli_connect($host, $db_user, $db_password, $database);
 
