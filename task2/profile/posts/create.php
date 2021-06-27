@@ -2,6 +2,10 @@
 	session_start();
 	include '../../configs/dbconfig.php';
 
+	if (!isset($_SESSION['user'])) {
+        header("location:../login.php");
+       }
+
 	$errors=[];
 	
 	$isAdded=false;
@@ -16,7 +20,7 @@
     	
 
     	if (isset($_POST['submit']) && count($errors)===0) {
-			$user_id = $_SESSION['id'];
+			$user_id = $_SESSION['user']['id'];
 			$isAdded=true;
 
 			$link=mysqli_connect($host, $db_user, $db_password, $database);
@@ -41,15 +45,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>News</title>
-	<link rel="stylesheet" href="../../style/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../../style/style.css">
 </head>
+<body>
+   <header class="header">
+       <div class="container">           
+            <nav class="menu">
+            <ul class="menu__list">
+                <li class="menu__list-item">
+                    <a href="../../index.php" class="menu__link">Главная</a>
+                </li>
+                <li class="menu__list-item">
+                    <a href="../../../news/index.php" class="menu__link">Новости</a>
+                </li>
+                <li class="menu__list-item">
+                    <a href="../../login.php" class="menu__link">Профиль</a>
+                </li>
+                <li class="menu__list-item">
+                    <a href="../../register.php" class="menu__link">Регистрация</a>
+                </li>
+				<?php if (isset($_SESSION['user'])): ?>
+				<li class="menu__list-item">
+                    <a href="../../logout.php" class="menu__link">Выйти</a>
+                </li>
+				<?php endif;?>
+            </ul>
+        </nav>
+       </div>
+   </header>
 <body>
 	<div class="products__inner">
 		<div class="container">
-			<?php if (isset($_SESSION['id'])): ?>
 			<a href="index.php">Назад</a>
 			<h1>Создать запись</h1>
 			<?php if (count($errors) > 0): ?>
@@ -74,12 +104,6 @@
 				<input class="form__input" type="hidden" name="user_id">
 				<input class="form__input" type="submit" name="submit" value="Добавить">
 			</form>
-			<?php else:
-                    unset($_SESSION['email']);
-                    unset($_SESSION['password']);
-                    session_destroy();
-                    header("location:../../login.php"); ?>
-            <?php endif;?>
 		</div>
 	</div>
 
