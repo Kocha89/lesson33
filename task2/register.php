@@ -99,7 +99,9 @@ if (isset($_POST['submit'])) {
 				<input class="input__form" type="text" name="password_2" placeholder="Повторить пароль">
 				<input class="input__form" type="submit" name="submit" value="Зарегистрироваться">
 			</form>
-            <div>У вас уже есть аккаунт?<a href="login.php">Войти</a></div>
+            <?php if (!isset($_SESSION['user'])): ?>
+				<div>У вас уже есть аккаунт?<a href="login.php">Войти</a></div>
+				<?php endif;?>            
             <?php
              if (isset($_POST['submit']) && count($errors)===0) {
                 $link=mysqli_connect($host, $db_user, $db_password, $database);

@@ -98,8 +98,8 @@ if (isset($_POST['submit'])) {
 				<input class="input__form" type="text" name="password" placeholder="Пароль">
 				<input class="input__form" type="submit" name="submit" value="Войти">
 			</form>
-			<div class="register">
-					<a class="register__text" href="register.php">Регистрация</a>
+			<div class="btn">
+					<a class="btn__link" href="register.php">Регистрация</a>
 			</div>
 		</div>
 	</div>
