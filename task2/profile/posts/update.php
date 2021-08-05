@@ -6,7 +6,7 @@
 	
 	$isChanged=false;
 
-	if (isset($_GET['id'])){
+	if (isset($_SESSION['user']) && isset($_GET['id'])){
 			$id = $_GET['id'];
 			$link=mysqli_connect($host, $db_user, $db_password, $database);
 			$query="SELECT * FROM posts WHERE id='$id'";
@@ -118,8 +118,7 @@
 				<input class="form__input" type="submit" name='submit' value="Сохранить">
 			</form>
 			<?php else:
-                    unset($_SESSION['email']);
-                    unset($_SESSION['password']);
+                    unset($_SESSION['user']);
                     session_destroy();
                     header("location:../../login.php"); ?>
             <?php endif;?>

@@ -108,8 +108,7 @@
 			<p>Нет новостей</p>
 			<?php endif;?>
 			<?php else:
-                    unset($_SESSION['email']);
-                    unset($_SESSION['password']);
+                    unset($_SESSION['user']);
                     session_destroy();
                     header("location:../../login.php"); ?>
             <?php endif;?>

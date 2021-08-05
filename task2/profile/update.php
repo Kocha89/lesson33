@@ -3,8 +3,10 @@
 	include '../configs/dbconfig.php';
 
 	$isChanged=false;
-	
-	if (isset($_POST['submit'])) {
+
+	if (!isset($_SESSION['user'])) {
+        header("location:../../login.php");
+       } elseif (isset($_POST['submit'])) {
 		$link=mysqli_connect($host, $db_user, $db_password, $database);
 
 		$first_name=$link->real_escape_string(trim($_POST['first_name']));
@@ -83,8 +85,7 @@
 			</form>
 			<?php else:
                     session_start();
-                    unset($_SESSION['email']);
-                    unset($_SESSION['password']);
+                    unset($_SESSION['user']);
                     session_destroy();
                     header("location:login.php"); ?>
             <?php endif;?>
